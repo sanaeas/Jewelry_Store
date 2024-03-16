@@ -1,5 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap");
+
+@font-face {
+  font-family: "Wondershine";
+  src: url("assets/fonts/Wondershine.otf") format("opentype"),
+    url("assets/fonts/Wondershine.ttf") format("truetype");
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Exo 2", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.container {
+  max-width: 1300px;
+  margin: 0 auto;
 }
