@@ -1,0 +1,49 @@
+footer .container {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 80px 16px;
+}
+
+.footer__section {
+  flex: 1 0 25%;
+  width: calc(25% - 16px);
+}
+
+.footer__logo--para {
+  font-weight: 300;
+  line-height: 1.5;
+  margin-top: 16px;
+}
+
+.footer__section--title {
+  font-size: 20px;
+  margin-bottom: 24px;
+}
+
+.footer__section--list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer__section--list li {
+  cursor: pointer;
+}
+
+.copyright {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding-block: 24px;
+  border-top: 1px solid #9f9f9f;
+}
+
+.copyright p {
+  text-align: center;
+  color: #242424;
+}
+
+.copyright p a {
+  color: #242424;
+}
