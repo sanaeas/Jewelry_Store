@@ -35,3 +35,27 @@ img {
   max-width: 1300px;
   margin: 0 auto;
 }
+
+#categories,
+#new,
+#about,
+#shop {
+  padding: 80px 16px;
+}
+
+.section__title {
+  font-size: 32px;
+  font-family: "Wondershine", sans-serif;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.section__title::before {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 3px;
+  background-color: #242424;
+  bottom: -8px;
+  border-radius: 2px;
+}
