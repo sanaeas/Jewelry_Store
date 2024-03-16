@@ -1,0 +1,35 @@
+.categories {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.category__img {
+  min-height: 350px;
+  margin-bottom: 16px;
+}
+
+.category__name {
+  color: #242424;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 300ms ease-in;
+}
+
+.category__name .css-i4bv87-MuiSvgIcon-root {
+  fill: #242424;
+  font-size: 16px;
+  transform: translateY(2px);
+  transition: all 300ms ease-in;
+}
+
+.category:hover .category__name {
+  color: #bf8c60;
+}
+
+.category:hover .category__name .css-i4bv87-MuiSvgIcon-root {
+  fill: #bf8c60;
+  transform: translateY(2px) translateX(4px);
+}
