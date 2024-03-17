@@ -6,6 +6,8 @@ import Home from "./pages/Home";
 import { initialState, reducer } from "./reducer";
 import { StateProvider } from "./StateProvider";
 import Shop from "./pages/Shop";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +17,14 @@ const router = createBrowserRouter([
   {
     path: "/shop",
     element: <Shop />,
+  },
+  {
+    path: "/signup",
+    element: <Signup />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
 ]);
 
