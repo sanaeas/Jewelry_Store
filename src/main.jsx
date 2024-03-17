@@ -8,6 +8,7 @@ import { StateProvider } from "./StateProvider";
 import Shop from "./pages/Shop";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import Cart from "./pages/Cart";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/cart",
+    element: <Cart />,
   },
 ]);
 
