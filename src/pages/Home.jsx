@@ -6,6 +6,7 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Navbar from "../components/Navbar";
 import { useStateValue } from "../useStateValue";
+import New from "../components/New";
 
 const data = [
   {
@@ -70,6 +71,7 @@ const Home = () => {
       <Header />
       <main>
         <Categories />
+        <New />
         <About />
         <Contact />
       </main>
