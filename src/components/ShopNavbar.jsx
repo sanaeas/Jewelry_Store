@@ -1,8 +1,11 @@
 import "../styles/Navbar.css";
 import { Link } from "react-router-dom";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
+import { useStateValue } from "../useStateValue";
+
 
 const ShopNavbar = () => {
+    const [{ cart }] = useStateValue();
   return (
     <nav>
       <div className="container">
@@ -28,7 +31,9 @@ const ShopNavbar = () => {
             <li>
               <Link to="/cart" className="nav__link">
                 <LocalMallIcon style={{ fill: "#242424" }} />
-                <span className="items__num">1</span>
+                {cart.length > 0 && (
+                  <span className="items__num">{cart.length}</span>
+                )}
               </Link>
             </li>
 

@@ -2,8 +2,28 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PropTypes from "prop-types";
 import "../styles/Products.css";
 import { Link } from "react-router-dom";
+import { useStateValue } from "../useStateValue";
 
 const SingleProduct = ({ id, name, price, image }) => {
+  const [{ cart }, dispatch] = useStateValue();
+
+  const addToCart = () => {
+    dispatch({
+      type: "ADD_TO_CART",
+      item: {
+        id: id,
+        name: name,
+        image: image,
+        price: price,
+        quantity: 1,
+      },
+    });
+  };
+
+  function existOnCart() {
+    return cart.find((product) => product.id === id);
+  }
+
   return (
     <div className="product">
       <Link to={`/shop/${id}`}>
@@ -16,10 +36,16 @@ const SingleProduct = ({ id, name, price, image }) => {
       </Link>
       <div className="price__btn--wrapper">
         <p className="product__price">${price.toFixed(2)}</p>
-        <div className="product__btn">
-          Add To Cart
-          <ShoppingCartIcon />
-        </div>
+        {existOnCart() ? (
+          <Link to={`/cart`}>
+            <div className="product__btn">Checkout</div>
+          </Link>
+        ) : (
+          <div className="product__btn" onClick={addToCart}>
+            Add To Cart
+            <ShoppingCartIcon />
+          </div>
+        )}
       </div>
     </div>
   );
