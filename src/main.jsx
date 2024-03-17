@@ -5,11 +5,16 @@ import "./index.css";
 import Home from "./pages/Home";
 import { initialState, reducer } from "./reducer";
 import { StateProvider } from "./StateProvider";
+import Shop from "./pages/Shop";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+  },
+  {
+    path: "/shop",
+    element: <Shop />,
   },
 ]);
 
