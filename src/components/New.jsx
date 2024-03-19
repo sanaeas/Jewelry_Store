@@ -12,8 +12,8 @@ const New = () => {
         <div className="products">
           {products.map((prod) => (
             <SingleProduct
-              key={prod.id}
-              id={prod.id}
+              key={prod._id}
+              id={prod._id}
               name={prod.name}
               price={prod.price}
               image={prod.img_url}

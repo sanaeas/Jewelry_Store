@@ -19,7 +19,7 @@ const Shop = () => {
               {products.map((product) => (
                 <SingleProduct
                   key={product._id}
-                  id={product.id}
+                  id={product._id}
                   name={product.name}
                   price={product.price}
                   image={product.img_url}
