@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 3000;
 
 //routes
 const productsRoutes = require('./routes/products');
+const authRoutes = require('./routes/auth');
 
 app.use(cors());
 app.use(express.json());
@@ -15,6 +16,8 @@ app.use(express.json());
 dbConnect();
 
 app.use('/api', productsRoutes);
+
+app.use('/api', authRoutes);
 
 app.use('/', (req, res) => {
   res.send('Hello from the server side');
