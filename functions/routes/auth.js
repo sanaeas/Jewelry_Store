@@ -19,15 +19,15 @@ router.post('/login', async (req, res) => {
     // Validate user credentials
     const { email, password } = req.body;
     const user = await User.findOne({ email });
-    if (!user) {
+    if (!user || !(await user.validPassword(password))) {
       return res.status(401).json({ message: 'Invalid email or password' });
+    } else {
+      // Generate JWT token
+      const token = generateToken(user);
+
+      // Return token to the client
+      res.status(200).json({ token });
     }
-
-    // Generate JWT token
-    const token = generateToken(user);
-
-    // Return token to the client
-    res.status(200).json({ token });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
