@@ -1,16 +1,44 @@
-import AuthImg from "../assets/auth.png";
-import "../styles/Login.css";
-import { Link } from "react-router-dom";
-import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
+import AuthImg from '../assets/auth.png';
+import '../styles/Login.css';
+import { Link } from 'react-router-dom';
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+import { useState } from 'react';
 
 const Signup = () => {
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('http://localhost:3000/api/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json();
+      console.log(data); // Handle success/failure
+    } catch (err) {
+      console.error('Error:', err);
+    }
+  };
+
   return (
     <>
       <nav>
         <div className="container">
           <div className="login__nav">
             <Link to="/">
-              <h1 className="navbar__logo" style={{ color: "#fff" }}>
+              <h1 className="navbar__logo" style={{ color: '#fff' }}>
                 Sparkle Jewelry
               </h1>
             </Link>
@@ -33,7 +61,7 @@ const Signup = () => {
 
           <div className="login__right">
             <h2 className="form__title">Sign up</h2>
-            <form className="form">
+            <form className="form" onSubmit={handleSubmit}>
               <label htmlFor="username" className="form__label">
                 Username
               </label>
@@ -43,6 +71,8 @@ const Signup = () => {
                 name="username"
                 className="form__input"
                 placeholder="Enter a username"
+                value={formData.username}
+                onChange={handleChange}
                 required
               />
 
@@ -55,6 +85,8 @@ const Signup = () => {
                 name="email"
                 placeholder="Enter your email"
                 className="form__input"
+                value={formData.email}
+                onChange={handleChange}
                 required
               />
 
@@ -67,12 +99,14 @@ const Signup = () => {
                 name="password"
                 placeholder="Enter your Password"
                 className="form__input"
+                value={formData.password}
+                onChange={handleChange}
                 required
               />
 
               <button type="submit" className="login__form--btn">
                 Sign Up
-                <ArrowRightAltIcon style={{ fill: "#fff" }} />
+                <ArrowRightAltIcon style={{ fill: '#fff' }} />
               </button>
             </form>
 
