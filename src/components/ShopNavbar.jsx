@@ -1,17 +1,18 @@
-import "../styles/Navbar.css";
-import { Link } from "react-router-dom";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
+import { Link } from "react-router-dom";
+import "../styles/Navbar.css";
 import { useStateValue } from "../useStateValue";
 
-
 const ShopNavbar = () => {
-    const [{ cart }] = useStateValue();
+  const [{ user, cart }] = useStateValue();
+
   return (
     <nav>
       <div className="container">
         <div className="navbar">
           <Link to="/">
-            <h1 className="navbar__logo">Sparkle Jewelry</h1>
+            <h1 className="navbar__logo">Sparkle</h1>
           </Link>
 
           <ul className="nav__links">
@@ -37,19 +38,27 @@ const ShopNavbar = () => {
               </Link>
             </li>
 
-            <>
+            {user ? (
               <li>
-                <Link to="/login" className="nav__link">
-                  Login
+                <Link to="/profile" className="nav__link">
+                  <AccountCircleIcon style={{ fill: "#242424" }} />
                 </Link>
               </li>
+            ) : (
+              <>
+                <li>
+                  <Link to="/login" className="nav__link">
+                    Login
+                  </Link>
+                </li>
 
-              <li>
-                <Link to="/signup" className="signup">
-                  Sign Up
-                </Link>
-              </li>
-            </>
+                <li>
+                  <Link to="/signup" className="signup">
+                    Sign Up
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>

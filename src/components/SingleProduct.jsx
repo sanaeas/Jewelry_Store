@@ -1,7 +1,7 @@
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PropTypes from "prop-types";
-import "../styles/Products.css";
 import { Link } from "react-router-dom";
+import "../styles/Products.css";
 import { useStateValue } from "../useStateValue";
 
 const SingleProduct = ({ id, name, price, image }) => {
@@ -26,12 +26,12 @@ const SingleProduct = ({ id, name, price, image }) => {
 
   return (
     <div className="product">
-      <Link to={`/shop/${id}`}>
+      <Link to={`/products/${id}`}>
         <figure className="product__img">
           <img src={image} alt="" />
         </figure>
       </Link>
-      <Link to={`/shop/${id}`}>
+      <Link to={`/products/${id}`}>
         <h3 className="product__name">{name}</h3>
       </Link>
       <div className="price__btn--wrapper">

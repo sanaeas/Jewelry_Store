@@ -1,9 +1,9 @@
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Link } from "react-router-dom";
+import Bracelets from "../assets/bracelets_cat.webp";
+import Earrings from "../assets/earrings_cat.webp";
 import Necklaces from "../assets/necklaces_cat.webp";
 import Rings from "../assets/rings_cat.webp";
-import Earrings from "../assets/earrings_cat.webp";
-import Bracelets from "../assets/bracelets_cat.webp";
 import "../styles/Categories.css";
 
 const Categories = () => {
@@ -12,7 +12,7 @@ const Categories = () => {
       <div className="container">
         <h2 className="section__title">Shop By Category</h2>
         <div className="categories">
-          <Link>
+          <Link to="/shop/necklace">
             <div className="category">
               <img
                 src={Necklaces}
@@ -24,7 +24,7 @@ const Categories = () => {
               </p>
             </div>
           </Link>
-          <Link>
+          <Link to="/shop/ring">
             <div className="category">
               <img src={Rings} alt="Ring Image" className="category__img" />
               <p className="category__name">
@@ -32,7 +32,7 @@ const Categories = () => {
               </p>
             </div>
           </Link>
-          <Link>
+          <Link to="/shop/earring">
             <div className="category">
               <img
                 src={Earrings}
@@ -44,7 +44,7 @@ const Categories = () => {
               </p>
             </div>
           </Link>
-          <Link>
+          <Link to="/shop/bracelet">
             <div className="category">
               <img
                 src={Bracelets}

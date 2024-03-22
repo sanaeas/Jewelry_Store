@@ -10,7 +10,7 @@ const New = () => {
       <div className="container">
         <h2 className="section__title">New Arrivals</h2>
         <div className="products">
-          {products.map((prod) => (
+          {products.slice(0, 4).map((prod) => (
             <SingleProduct
               key={prod._id}
               id={prod._id}

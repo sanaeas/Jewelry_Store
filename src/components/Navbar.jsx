@@ -2,9 +2,21 @@ import "../styles/Navbar.css";
 import { Link } from "react-router-dom";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import { useStateValue } from "../useStateValue";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { useCookies } from "react-cookie";
 
 const Navbar = () => {
-  const [{ cart }] = useStateValue();
+  const [{ user, cart }, dispatch] = useStateValue();
+  const [, removeCookie] = useCookies([]);
+
+  const Logout = () => {
+    removeCookie("token");
+    dispatch({
+      type: "SET_USER",
+      user: null,
+    });
+  };
+
   return (
     <nav>
       <div className="container">
@@ -46,19 +58,33 @@ const Navbar = () => {
               </Link>
             </li>
 
-            <>
-              <li>
-                <Link to="/login" className="nav__link">
-                  Login
-                </Link>
-              </li>
+            {user ? (
+              <>
+                <li>
+                  <Link to="/profile" className="nav__link">
+                    <AccountCircleIcon style={{ fill: "#242424" }} />
+                  </Link>
+                </li>
 
-              <li>
-                <Link to="/signup" className="signup">
-                  Sign Up
-                </Link>
-              </li>
-            </>
+                <li className="navbar__logout--btn" onClick={Logout}>
+                  Log out
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link to="/login" className="nav__link">
+                    Login
+                  </Link>
+                </li>
+
+                <li>
+                  <Link to="/signup" className="signup">
+                    Sign Up
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>
