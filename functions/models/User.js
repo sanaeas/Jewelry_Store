@@ -27,17 +27,6 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-// Method to validate password
-userSchema.methods.validPassword = async function (password) {
-  try {
-    const user_pwd = await bcrypt.hash(password, 10);
-    return user_pwd === this.password;
-  } catch (error) {
-    console.error('Error validating password:', error);
-    return false;
-  }
-};
-
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;
