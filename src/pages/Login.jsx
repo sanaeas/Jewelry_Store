@@ -1,36 +1,62 @@
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import AuthImg from '../assets/auth.png';
 import '../styles/Login.css';
-import { useState } from 'react';
 
 const Login = () => {
-  const [formData, setFormData] = useState({
+  const navigate = useNavigate();
+  const [inputValue, setInputValue] = useState({
     email: '',
     password: '',
   });
-
+  const { email, password } = inputValue;
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setInputValue({
+      ...inputValue,
+      [name]: value,
+    });
   };
 
-  const handleLogin = async () => {
+  const handleError = (err) =>
+    toast.error(err, {
+      position: 'bottom-left',
+    });
+  const handleSuccess = (msg) =>
+    toast.success(msg, {
+      position: 'bottom-left',
+    });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const { data } = await axios.post(
+        'http://localhost:3000/login',
+        {
+          ...inputValue,
         },
-        body: JSON.stringify(formData),
-      });
-      const data = await response.json();
-      // Store token securely (e.g., in localStorage)
-      localStorage.setItem('token', data.token);
-      // Redirect or perform other actions as needed
-      window.location.href = '/';
-    } catch (err) {
-      console.error('Error:', err);
+        { withCredentials: true }
+      );
+      const { success, message } = data;
+      if (success) {
+        handleSuccess(message);
+        setTimeout(() => {
+          navigate('/');
+        }, 1000);
+      } else {
+        handleError(message);
+      }
+    } catch (error) {
+      console.log(error);
     }
+    setInputValue({
+      ...inputValue,
+      email: '',
+      password: '',
+    });
   };
 
   return (
@@ -39,7 +65,7 @@ const Login = () => {
         <div className="container">
           <div className="login__nav">
             <Link to="/">
-              <h1 className="navbar__logo">Sparkle Jewelry</h1>
+              <h1 className="navbar__logo">Sparkle</h1>
             </Link>
           </div>
         </div>
@@ -60,13 +86,7 @@ const Login = () => {
 
           <div className="login__right">
             <h2 className="form__title">Log In</h2>
-            <form
-              className="form"
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleLogin();
-              }}
-            >
+            <form className="form" onSubmit={handleSubmit}>
               <label htmlFor="email" className="form__label">
                 Email
               </label>
@@ -76,7 +96,7 @@ const Login = () => {
                 placeholder="Enter your email"
                 className="form__input"
                 name="email"
-                value={formData.email}
+                value={email}
                 onChange={handleChange}
                 required
               />
@@ -90,7 +110,7 @@ const Login = () => {
                 placeholder="Enter your Password"
                 className="form__input"
                 name="password"
-                value={formData.password}
+                value={password}
                 onChange={handleChange}
                 required
               />
@@ -103,6 +123,7 @@ const Login = () => {
             <p className="login__para">
               Don&apos;t have an account? <Link to="/signup">Register</Link>
             </p>
+            <ToastContainer />
           </div>
         </div>
       </section>
