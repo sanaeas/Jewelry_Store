@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import CartProduct from "../components/CartProduct";
-import ShopNavbar from "../components/ShopNavbar";
-import "../styles/Cart.css";
-import { useStateValue } from "../useStateValue";
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import CartProduct from '../components/CartProduct';
+import ShopNavbar from '../components/ShopNavbar';
+import '../styles/Cart.css';
+import { useStateValue } from '../useStateValue';
 
 const Cart = () => {
-  const [{ cart }] = useStateValue();
+  const [{ cart, user }] = useStateValue();
   const [total, setTotal] = useState(0);
   const navigate = useNavigate();
 
@@ -18,6 +18,32 @@ const Cart = () => {
     );
     setTotal(total);
   }, [cart]);
+
+  const handlePayment = () => {
+    if (!user) {
+      return navigate('/login');
+    }
+    fetch('http://localhost:3000/checkout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: user.email,
+        cart: cart,
+      }),
+    })
+      .then((response) => {
+        if (response.ok) return response.json();
+        return response.json().then((json) => Promise.reject(json));
+      })
+      .then(({ url }) => {
+        window.location = url;
+      })
+      .catch((err) => {
+        console.error(err.error);
+      });
+  };
 
   return (
     <>
@@ -48,17 +74,17 @@ const Cart = () => {
                 <div className="order__total">
                   <p>Shipping:</p>
                   <p>
-                    $<span>25</span>
+                    <span>Free</span>
                   </p>
                 </div>
                 <div className="order__total">
                   <p>Total:</p>
                   <p className="order__total--price">
-                    $<span>{total && (total + 25).toFixed(2)}</span>
+                    $<span>{total && total.toFixed(2)}</span>
                   </p>
                 </div>
                 <div className="order__checkout">
-                  <Link onClick={() => navigate("/payment")}>Checkout</Link>
+                  <Link onClick={handlePayment}>Checkout</Link>
                 </div>
               </div>
             </div>
