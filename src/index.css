@@ -60,3 +60,9 @@ img {
   bottom: -8px;
   border-radius: 2px;
 }
+
+@media screen and (max-width: 480px) {
+  .section__title {
+    font-size: 24px;
+  }
+}

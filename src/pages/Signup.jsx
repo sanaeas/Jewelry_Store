@@ -1,17 +1,17 @@
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import axios from 'axios';
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import AuthImg from '../assets/auth.png';
-import '../styles/Login.css';
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
+import axios from "axios";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import AuthImg from "../assets/auth.png";
+import "../styles/Login.css";
 
 const Signup = () => {
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState({
-    username: '',
-    email: '',
-    password: '',
+    username: "",
+    email: "",
+    password: "",
   });
 
   const { email, password, username } = inputValue;
@@ -25,18 +25,18 @@ const Signup = () => {
 
   const handleError = (err) =>
     toast.error(err, {
-      position: 'bottom-left',
+      position: "bottom-left",
     });
   const handleSuccess = (msg) =>
     toast.success(msg, {
-      position: 'bottom-right',
+      position: "bottom-right",
     });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        'http://localhost:3000/signup',
+        "http://localhost:3000/signup",
         {
           ...inputValue,
         },
@@ -46,7 +46,7 @@ const Signup = () => {
       if (success) {
         handleSuccess(message);
         setTimeout(() => {
-          navigate('/');
+          navigate("/");
         }, 1000);
       } else {
         handleError(message);
@@ -56,24 +56,24 @@ const Signup = () => {
     }
     setInputValue({
       ...inputValue,
-      email: '',
-      password: '',
-      username: '',
+      email: "",
+      password: "",
+      username: "",
     });
   };
 
   return (
     <>
       <nav>
-        <div className="container">
-          <div className="login__nav">
-            <Link to="/">
-              <h1 className="navbar__logo" style={{ color: '#fff' }}>
-                Sparkle
-              </h1>
-            </Link>
+        <nav>
+          <div className="container">
+            <div className="login__nav">
+              <Link to="/">
+                <h1 className="navbar__logo signup__navbar--logo">Sparkle</h1>
+              </Link>
+            </div>
           </div>
-        </div>
+        </nav>
       </nav>
 
       <div className="signup__bg-bronze" aria-hidden="true"></div>
@@ -136,7 +136,7 @@ const Signup = () => {
 
               <button type="submit" className="login__form--btn">
                 Sign Up
-                <ArrowRightAltIcon style={{ fill: '#fff' }} />
+                <ArrowRightAltIcon style={{ fill: "#fff" }} />
               </button>
             </form>
 

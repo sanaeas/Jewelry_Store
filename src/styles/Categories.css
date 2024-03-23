@@ -33,3 +33,28 @@
   fill: #bf8c60;
   transform: translateY(2px) translateX(4px);
 }
+
+@media screen and (max-width: 690px) {
+  .category__img {
+    min-height: 250px;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .categories {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .categories a {
+    flex: 1 0 50%;
+    max-width: calc(50% - 8px);
+    margin-bottom: 24px;
+  }
+
+  .category__img {
+    height: 250px;
+  }
+}

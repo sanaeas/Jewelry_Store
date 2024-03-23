@@ -72,3 +72,49 @@
   padding-bottom: 80px;
   padding-inline: 16px;
 }
+
+@media screen and (max-width: 1200px) {
+  .product-info {
+    gap: 16px;
+  }
+
+  .product-info__description p {
+    width: 90%;
+  }
+
+  #similar {
+    padding-inline: 32px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .product-info {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .product-info__img {
+    margin-bottom: 32px;
+  }
+
+  .product-info__details {
+    width: 90%;
+  }
+
+  .product-info__title,
+  .product-info__description p {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .product-info__img {
+    width: 90%;
+    height: auto;
+  }
+
+  .product-info__title {
+    font-size: 32px;
+  }
+}

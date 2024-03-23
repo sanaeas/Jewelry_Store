@@ -66,3 +66,31 @@
   font-size: 20px;
   transform: translateY(2px);
 }
+
+@media screen and (max-width: 900px) {
+  #contact .container {
+    flex-direction: column;
+    gap: 32px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .subscribe {
+    flex-direction: column;
+  }
+
+  .subscribe__email {
+    min-width: 400px;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .subscribe__text {
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  .subscribe__email {
+    min-width: 100%;
+  }
+}

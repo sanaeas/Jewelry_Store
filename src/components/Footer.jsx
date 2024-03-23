@@ -10,7 +10,8 @@ const Footer = () => {
             <h1 className="navbar__logo">Sparkle</h1>
           </Link>
           <div className="footer__logo--para">
-            Crafting Memories, <br/>One Sparkle at a Time.
+            Crafting Memories, <br />
+            One Sparkle at a Time.
           </div>
         </div>
         <div className="footer__section">
@@ -43,7 +44,7 @@ const Footer = () => {
       </div>
       <div className="copyright">
         <p>
-          TheName Jewelry © 2024 by Assim | <a href="#">Privacy Policy</a> |{" "}
+          Sparkle © 2024 by Assim | <a href="#">Privacy Policy</a> |{" "}
           <a href="#">Sitemap</a>
         </p>
       </div>

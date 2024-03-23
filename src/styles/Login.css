@@ -54,6 +54,10 @@
   padding: 24px 16px;
 }
 
+.signup__navbar--logo {
+  color: #fff;
+}
+
 .login__right {
   padding-inline: 48px;
 }
@@ -185,4 +189,36 @@ textarea.form__input {
 .login__para a {
   color: #3c3f47;
   text-decoration: underline;
+}
+
+@media screen and (max-width: 675px) {
+  .login__left,
+  .login__bg-bronze,
+  .signup__bg-bronze {
+    display: none;
+  }
+
+  .signup__navbar--logo {
+    color: #242424;
+  }
+
+  .login__right {
+    flex: 1 0 80%;
+    max-width: 80%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .login__right {
+    flex: 1 0 90%;
+    max-width: 90%;
+    padding-inline: 16px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .login__right {
+    flex: 1 0 100%;
+    max-width: 100%;
+  }
 }

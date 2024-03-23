@@ -86,3 +86,44 @@
   object-fit: cover;
   object-position: bottom;
 }
+
+@media screen and (max-width: 775px) {
+  .about__para {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 725px) {
+  .about__row {
+    gap: 16px;
+  }
+
+  .about__col--left,
+  .about__col--right {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .about__row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .about__col--left {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .about__col--left-img {
+    width: 80%;
+  }
+
+  .about__col--right {
+    display: none;
+  }
+}
