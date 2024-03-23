@@ -39,7 +39,8 @@ img {
 #categories,
 #new,
 #about,
-#shop {
+#shop,
+.product-info {
   padding: 80px 16px;
 }
 

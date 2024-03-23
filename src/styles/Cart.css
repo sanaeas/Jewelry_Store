@@ -145,9 +145,14 @@
 }
 
 .order__checkout {
-  background-color: #fff;
+  background-color: #a68d60;
+  border-radius: 8px;
   width: fit-content;
   padding: 10px 24px;
   cursor: pointer;
   margin-left: auto;
+}
+
+.order__checkout a {
+  color: #fff;
 }
