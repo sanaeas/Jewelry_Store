@@ -1,32 +1,63 @@
+import axios from "axios";
+import { format } from "date-fns";
+import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import ProfileImg from "../assets/user-profile.png";
 import ShopNavbar from "../components/ShopNavbar";
 import "../styles/Profile.css";
 import { useStateValue } from "../useStateValue";
 
-const orders = [
-  {
-    _id: "hbkacea89ebkyq32",
-    createdAt: "DD MM YYYY",
-    total: 309.98,
-    items: [
-      {
-        _id: "o3bjk237t236w12vde",
-        name: "Product number 1",
-        img_url:
-          "https://static.mejuri.com/mejuri-com/image/fetch/c_scale,f_auto,q_60,w_1500/https://static.mejuri.com/legacy-front/production/system/spree/products/31866/original/0-LABGROWNDIAMONDSBEZEL-BabyBezelSmallHoop-14K-Angled_024.jpg?1709934853",
-        price: 98,
-        quantity: 1,
-      },
-    ],
-  },
-];
-
 const Profile = () => {
-  const [{ user }, dispatch] = useStateValue();
+  const [{ user, products }, dispatch] = useStateValue();
   const navigate = useNavigate();
-  const [, removeCookie] = useCookies([]);
+  const [cookies, removeCookie] = useCookies([]);
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    const verifyCookie = async () => {
+      if (cookies.token !== undefined) {
+        try {
+          const { data } = await axios.post(
+            "http://localhost:3000",
+            {},
+            { withCredentials: true }
+          );
+          const { status, username, email } = data;
+          dispatch({
+            type: "SET_USER",
+            user: status ? { username, email } : null,
+          });
+          if (status) {
+            toast(`Hello ${username}`, {
+              position: "top-right",
+            });
+          } else {
+            removeCookie("token");
+            navigate("/login");
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      }
+    };
+    verifyCookie();
+
+    const fetchOrders = async () => {
+      try {
+        const { data } = await axios.get(
+          `http://localhost:3000/api/orders?user=${user.email}`
+        );
+        setOrders(data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchOrders();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cookies, navigate, removeCookie, dispatch]);
 
   const Logout = () => {
     removeCookie("token");
@@ -36,6 +67,11 @@ const Profile = () => {
     });
     navigate("/login");
   };
+
+  function find(productId) {
+    const found = products.find((product) => product._id == productId);
+    return found;
+  }
 
   return (
     <>
@@ -70,7 +106,10 @@ const Profile = () => {
                     <div key={order._id} className="order">
                       <div className="order__heading">
                         <h4 className="order__title">
-                          Ordered: <span>{order.createdAt}</span>
+                          Ordered:{' '}
+                          <span>
+                            {format(order.createdAt, 'EEE dd MMM yyyy')}
+                          </span>
                         </h4>
                         <p className="order__total">${order.total}</p>
                       </div>
@@ -78,13 +117,13 @@ const Profile = () => {
                         <div key={product._id} className="order__product">
                           <div className="order__product--img">
                             <img
-                              src={product.img_url}
-                              alt={`${product.name} Image`}
+                              src={find(product.product).img_url}
+                              alt={`${find(product.product).name} Image`}
                             />
                           </div>
                           <div className="order__product--details">
                             <h5 className="order__product--name">
-                              {product.name}
+                              {find(product.product).name}
                             </h5>
                             <p className="order__product--qtt">
                               Quantity: {product.quantity}
