@@ -1,35 +1,65 @@
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+import axios from 'axios';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import AuthImg from '../assets/auth.png';
 import '../styles/Login.css';
-import { Link } from 'react-router-dom';
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import { useState } from 'react';
 
 const Signup = () => {
-  const [formData, setFormData] = useState({
+  const navigate = useNavigate();
+  const [inputValue, setInputValue] = useState({
     username: '',
     email: '',
     password: '',
   });
 
+  const { email, password, username } = inputValue;
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setInputValue({
+      ...inputValue,
+      [name]: value,
+    });
   };
+
+  const handleError = (err) =>
+    toast.error(err, {
+      position: 'bottom-left',
+    });
+  const handleSuccess = (msg) =>
+    toast.success(msg, {
+      position: 'bottom-right',
+    });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/api/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const { data } = await axios.post(
+        'http://localhost:3000/signup',
+        {
+          ...inputValue,
         },
-        body: JSON.stringify(formData),
-      });
-      const data = await response.json();
-      console.log(data); // Handle success/failure
-    } catch (err) {
-      console.error('Error:', err);
+        { withCredentials: true }
+      );
+      const { success, message } = data;
+      if (success) {
+        handleSuccess(message);
+        setTimeout(() => {
+          navigate('/');
+        }, 1000);
+      } else {
+        handleError(message);
+      }
+    } catch (error) {
+      console.log(error);
     }
+    setInputValue({
+      ...inputValue,
+      email: '',
+      password: '',
+      username: '',
+    });
   };
 
   return (
@@ -39,7 +69,7 @@ const Signup = () => {
           <div className="login__nav">
             <Link to="/">
               <h1 className="navbar__logo" style={{ color: '#fff' }}>
-                Sparkle Jewelry
+                Sparkle
               </h1>
             </Link>
           </div>
@@ -71,7 +101,7 @@ const Signup = () => {
                 name="username"
                 className="form__input"
                 placeholder="Enter a username"
-                value={formData.username}
+                value={username}
                 onChange={handleChange}
                 required
               />
@@ -85,7 +115,7 @@ const Signup = () => {
                 name="email"
                 placeholder="Enter your email"
                 className="form__input"
-                value={formData.email}
+                value={email}
                 onChange={handleChange}
                 required
               />
@@ -99,7 +129,7 @@ const Signup = () => {
                 name="password"
                 placeholder="Enter your Password"
                 className="form__input"
-                value={formData.password}
+                value={password}
                 onChange={handleChange}
                 required
               />
@@ -113,6 +143,8 @@ const Signup = () => {
             <p className="login__para">
               Joined us before? <Link to="/login">Login</Link>
             </p>
+
+            <ToastContainer />
           </div>
         </div>
       </section>
