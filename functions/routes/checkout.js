@@ -32,7 +32,7 @@ router.post('/checkout', async (req, res) => {
           quantity: item.quantity,
         };
       }),
-      success_url: `${process.env.CLIENT_URL}/profile`,
+      success_url: `${process.env.CLIENT_URL}/`,
       cancel_url: `${process.env.CLIENT_URL}/cart`,
     });
 
